@@ -5,6 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/Eugene7997/cheatcom/internal/action"
 	"github.com/Eugene7997/cheatcom/internal/store"
 )
 
@@ -29,8 +30,8 @@ func init() {
 
 func runConfigDefault(cmd *cobra.Command, args []string) error {
 	a := args[0]
-	if a != "copy" && a != "run" && a != "print" {
-		return fmt.Errorf("action must be one of: copy, run, print")
+	if _, err := action.Parse(a); err != nil {
+		return err
 	}
 	s, err := store.Load()
 	if err != nil {

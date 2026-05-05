@@ -123,7 +123,7 @@ func RunEdit(c store.Cheat) (EditResult, error) {
 	}
 
 	rawTags := strings.Split(fm.inputs[fieldTags].Value(), ",")
-	tags := normalizeTags(rawTags)
+	tags := store.NormalizeTags(rawTags)
 
 	return EditResult{
 		Command:     fm.inputs[fieldCommand].Value(),
@@ -131,15 +131,4 @@ func RunEdit(c store.Cheat) (EditResult, error) {
 		Tags:        tags,
 		Submitted:   true,
 	}, nil
-}
-
-func normalizeTags(tags []string) []string {
-	out := make([]string, 0, len(tags))
-	for _, t := range tags {
-		t = strings.TrimSpace(strings.ToLower(t))
-		if t != "" {
-			out = append(out, t)
-		}
-	}
-	return out
 }

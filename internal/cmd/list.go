@@ -31,6 +31,7 @@ func runList(cmd *cobra.Command, args []string) error {
 
 	cheats := s.All()
 	if len(cheats) == 0 {
+		fmt.Println("No cheats yet. Add one with: chc add \"<command>\" -d \"<description>\"")
 		return nil
 	}
 

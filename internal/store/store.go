@@ -156,6 +156,16 @@ func (s *Store) DefaultAction() string {
 	return s.defaultAction
 }
 
+func (s *Store) NewUniqueID() (string, error) {
+	for range 10 {
+		id := NewID()
+		if _, exists := s.Get(id); !exists {
+			return id, nil
+		}
+	}
+	return "", fmt.Errorf("could not generate a unique ID after 10 attempts")
+}
+
 func (s *Store) SetDefaultAction(a string) error {
 	s.defaultAction = a
 	return s.Save()

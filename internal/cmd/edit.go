@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
+	"time"
 
 	"github.com/spf13/cobra"
 
@@ -41,9 +43,14 @@ func runEdit(cmd *cobra.Command, args []string) error {
 		return nil
 	}
 
+	if strings.TrimSpace(res.Command) == "" {
+		return fmt.Errorf("command must not be empty")
+	}
+
 	c.Command = res.Command
 	c.Description = res.Description
 	c.Tags = res.Tags
+	c.UpdatedAt = time.Now().UTC()
 
 	if err := s.Update(c); err != nil {
 		return err

@@ -3,7 +3,7 @@ package tui
 import "github.com/charmbracelet/bubbles/key"
 
 type keyMap struct {
-	Copy   key.Binding
+	Enter  key.Binding
 	Run    key.Binding
 	Print  key.Binding
 	Quit   key.Binding
@@ -11,9 +11,9 @@ type keyMap struct {
 }
 
 var keys = keyMap{
-	Copy: key.NewBinding(
+	Enter: key.NewBinding(
 		key.WithKeys("enter"),
-		key.WithHelp("enter", "copy"),
+		key.WithHelp("enter", "select"),
 	),
 	Run: key.NewBinding(
 		key.WithKeys("r"),

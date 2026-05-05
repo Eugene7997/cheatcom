@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -35,24 +34,19 @@ func runAdd(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	var id string
-	for range 3 {
-		candidate := store.NewID()
-		if _, exists := s.Get(candidate); !exists {
-			id = candidate
-			break
-		}
-	}
-	if id == "" {
-		return fmt.Errorf("could not generate a unique ID, please try again")
+	id, err := s.NewUniqueID()
+	if err != nil {
+		return err
 	}
 
+	now := time.Now().UTC()
 	c := store.Cheat{
 		ID:          id,
 		Command:     args[0],
 		Description: addDescription,
-		Tags:        normalizeTags(addTags),
-		CreatedAt:   time.Now().UTC(),
+		Tags:        store.NormalizeTags(addTags),
+		CreatedAt:   now,
+		UpdatedAt:   now,
 	}
 
 	if err := s.Add(c); err != nil {
@@ -64,15 +58,4 @@ func runAdd(cmd *cobra.Command, args []string) error {
 
 	fmt.Printf("added %s\n", id)
 	return nil
-}
-
-func normalizeTags(tags []string) []string {
-	out := make([]string, 0, len(tags))
-	for _, t := range tags {
-		t = strings.TrimSpace(strings.ToLower(t))
-		if t != "" {
-			out = append(out, t)
-		}
-	}
-	return out
 }

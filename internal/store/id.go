@@ -1,10 +1,17 @@
 package store
 
-import gonanoid "github.com/matoous/go-nanoid/v2"
+import (
+	"fmt"
+
+	gonanoid "github.com/matoous/go-nanoid/v2"
+)
 
 const idAlphabet = "abcdefghijkmnpqrstuvwxyz23456789"
 
 func NewID() string {
-	id, _ := gonanoid.Generate(idAlphabet, 8)
+	id, err := gonanoid.Generate(idAlphabet, 8)
+	if err != nil {
+		panic(fmt.Sprintf("nanoid: %v", err))
+	}
 	return id
 }

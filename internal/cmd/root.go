@@ -44,7 +44,7 @@ func runRoot(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	defaultAct := parseActionString(s.DefaultAction())
+	defaultAct, _ := action.Parse(s.DefaultAction())
 	res, err := tui.Run(s.All(), defaultAct)
 	if err != nil {
 		return fmt.Errorf("tui: %w", err)
@@ -68,15 +68,4 @@ func resolveAction(fromTUI action.Action) action.Action {
 		return action.Copy
 	}
 	return fromTUI
-}
-
-func parseActionString(s string) action.Action {
-	switch s {
-	case "run":
-		return action.Run
-	case "print":
-		return action.Print
-	default:
-		return action.Copy
-	}
 }

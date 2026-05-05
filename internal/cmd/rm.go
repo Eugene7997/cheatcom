@@ -28,7 +28,7 @@ func runRm(cmd *cobra.Command, args []string) error {
 
 	id := args[0]
 	if err := s.Delete(id); err != nil {
-		return fmt.Errorf("not found: %s", id)
+		return err
 	}
 
 	if err := s.Save(); err != nil {

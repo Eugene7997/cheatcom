@@ -1,6 +1,7 @@
 package tui
 
 import (
+	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -56,11 +57,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			break
 		}
 		switch {
-		case msg.String() == "q" || msg.String() == "esc" || msg.String() == "ctrl+c":
+		case key.Matches(msg, keys.Quit):
 			m.cancelled = true
 			return m, tea.Quit
 
-		case msg.String() == "enter":
+		case key.Matches(msg, keys.Enter):
 			item, ok := m.list.SelectedItem().(cheatItem)
 			if !ok {
 				return m, nil
@@ -69,7 +70,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.chosen = true
 			return m, tea.Quit
 
-		case msg.String() == "r":
+		case key.Matches(msg, keys.Run):
 			item, ok := m.list.SelectedItem().(cheatItem)
 			if !ok {
 				return m, nil
@@ -78,7 +79,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.chosen = true
 			return m, tea.Quit
 
-		case msg.String() == "p":
+		case key.Matches(msg, keys.Print):
 			item, ok := m.list.SelectedItem().(cheatItem)
 			if !ok {
 				return m, nil
