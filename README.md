@@ -4,7 +4,23 @@ A personal CLI cheatsheet to save commands you always forget and retrieve them i
 
 ## Install
 
-Build from source:
+### Pre-built binaries (recommended)
+
+Download the latest release for your platform from the [GitHub Releases page](https://github.com/Eugene7997/cheatcom/releases/latest):
+
+| Platform | File |
+|----------|------|
+| Windows (x86_64) | `cheatcom_Windows_x86_64.zip` |
+| Windows (arm64) | `cheatcom_Windows_arm64.zip` |
+| macOS (Apple Silicon) | `cheatcom_Darwin_arm64.tar.gz` |
+| macOS (Intel) | `cheatcom_Darwin_x86_64.tar.gz` |
+| Linux (x86_64) | `cheatcom_Linux_x86_64.tar.gz` |
+| Linux (arm64) | `cheatcom_Linux_arm64.tar.gz` |
+| Linux (i386) | `cheatcom_Linux_i386.tar.gz` |
+
+Extract the archive and place the `chc` (or `chc.exe` on Windows) binary somewhere on your `PATH`.
+
+### Build from source
 
 ```bash
 git clone https://github.com/Eugene7997/cheatcom
@@ -35,7 +51,7 @@ Opens a fuzzy-searchable list. Press:
 | `r` | Run in shell |
 | `p` | Print to stdout |
 | `/` | Filter list |
-| `q` / `esc` | Quit |
+| `q` / `esc` / `ctrl+c` | Quit |
 
 ### Edit a cheat
 
