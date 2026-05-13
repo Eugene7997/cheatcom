@@ -47,6 +47,13 @@ archives:
       - goos: windows
         formats: [zip]
 
+nfpms:
+  - formats:
+      - deb
+    maintainer: Eugene7997 <ypoh007@ntu.edu.sg>
+    description: A CLI cheat sheet manager.
+    license: MIT
+
 changelog:
   sort: asc
   filters:
