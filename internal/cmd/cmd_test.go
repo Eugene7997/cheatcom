@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -12,16 +13,33 @@ import (
 	"github.com/Eugene7997/cheatcom/internal/store"
 )
 
-// storeDir redirects APPDATA to a fresh temp dir so store.Load() uses an
-// isolated cheats.yaml. Returns the path to that file.
+// storeDir redirects the OS config dir env var to a fresh temp dir so
+// store.Load() uses an isolated cheats.yaml. Returns the path to that file.
 func storeDir(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()
-	t.Setenv("APPDATA", dir)
+	switch runtime.GOOS {
+	case "windows":
+		t.Setenv("APPDATA", dir)
+	case "darwin":
+		home := filepath.Join(dir, "home")
+		if err := os.MkdirAll(home, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		t.Setenv("HOME", home)
+	default:
+		// XDG_CONFIG_HOME is set via os.Setenv under the hood; these tests
+		// must not call t.Parallel() or they will race on this env var.
+		t.Setenv("XDG_CONFIG_HOME", dir)
+	}
+	cfgDir, err := os.UserConfigDir()
+	if err != nil {
+		t.Fatalf("UserConfigDir: %v", err)
+	}
 	// Suppress cobra's own error printing so test output stays clean.
 	rootCmd.SetErr(io.Discard)
 	t.Cleanup(func() { rootCmd.SetErr(nil) })
-	return filepath.Join(dir, "cheatcom", "cheats.yaml")
+	return filepath.Join(cfgDir, "cheatcom", "cheats.yaml")
 }
 
 // seedCheat writes a cheat directly into the store file so commands have
