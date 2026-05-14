@@ -2,6 +2,12 @@
 
 A personal CLI cheatsheet to save commands you always forget and retrieve them instantly.
 
+[![License](https://img.shields.io/github/license/Eugene7997/cheatcom)](LICENSE)
+[![Build](https://img.shields.io/github/actions/workflow/status/Eugene7997/cheatcom/ci.yml)](https://github.com/Eugene7997/cheatcom/actions)
+[![CI](https://github.com/Eugene7997/cheatcom/actions/workflows/ci.yml/badge.svg)](https://github.com/Eugene7997/cheatcom/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/release/Eugene7997/cheatcom)](https://github.com/Eugene7997/cheatcom/releases)
+[![Coverage](https://img.shields.io/codecov/c/github/Eugene7997/cheatcom)](https://codecov.io/gh/Eugene7997/cheatcom)
+
 ## Install
 
 ### Pre-built binaries (recommended)
